@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS task(
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    task VARCHAR(200),
+    description VARCHAR(255),
+    status VARCHAR(100),
+    PRIMARY KEY(id)
+)
