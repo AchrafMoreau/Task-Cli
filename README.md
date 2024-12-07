@@ -1,4 +1,4 @@
-# CLI Task Manager ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.5.0-green) ![Java](https://img.shields.io/badge/Java-11-blue) ![MySQL](https://img.shields.io/badge/MySQL-5.7+-blue)
+# CLI Task Manager ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.0-green) ![Java](https://img.shields.io/badge/Java-12-blue) ![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue)
 
 A Command-Line Interface (CLI) task manager built with Spring Boot. This application allows you to manage tasks with basic functionality such as creating, updating, listing, and deleting tasks. Tasks are stored in a database and manipulated through simple CLI commands.
 
@@ -20,8 +20,8 @@ A Command-Line Interface (CLI) task manager built with Spring Boot. This applica
 
 ## Prerequisites ⚙️
 
-- **JDK 11+**: Make sure you have Java Development Kit 11 or higher installed.
-- **MySQL 8.7+**: The application uses MySQL as the database.
+- **JDK 12+**: Make sure you have Java Development Kit 11 or higher installed.
+- **MySQL 8.0+**: The application uses MySQL as the database.
 
 ## Setup 🏗️
 
