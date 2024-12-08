@@ -33,17 +33,17 @@ public class CliManger {
 
         while (!(command = scanner.next().toLowerCase()).equals("exit")){
             switch (command){
-                case "add": add();
-                    break;
-                case "edit": edit();
-                    break;
-                case "show": show();
-                    break;
-                case "delete": delete();
-                    break;
-                case "list" : list();
-                    break;
-                default:
+                case "add" -> add();
+                case "edit" -> edit();
+                case "show" -> show();
+                case "delete" -> delete();
+                case "list" -> list();
+                case "mark-as" -> markAs();
+                case "help" -> help();
+                case "list-new" -> listNew();
+                case "list-complete" -> listComplete();
+                case "list-in-progress" -> listInProgress();
+                default ->
                     out.println("Unknown Command Ya Weld Nass");
             }
         }
@@ -121,17 +121,71 @@ public class CliManger {
     {
         try{
             List<Task> tasks = taskRepo.list();
+            ListPrinter.printTaskList(tasks);
 
-            tasks.forEach(task ->
-                    out.println("Task : " + task.getTask() + "\t" +
-                            "Description : " + task.getDesc() + "\t" +
-                            "Status : " + task.getStatus().name())
-            );
         }catch (NoTaskWasFoundException e){
             out.println(e.getMessage());
         }
     }
 
+    public void listNew()
+    {
+        try{
+            List<Task> tasks = taskRepo.listNew();
+            ListPrinter.printTaskList(tasks);
+        }catch (NoTaskWasFoundException e){
+            out.println(e.getMessage());
+        }
+    }
+
+    public void listComplete()
+    {
+        try{
+            List<Task> tasks = taskRepo.listComplete();
+            ListPrinter.printTaskList(tasks);
+        }catch (NoTaskWasFoundException e){
+            out.println(e.getMessage());
+        }
+    }
+
+    public void listInProgress()
+    {
+        try{
+            List<Task> tasks = taskRepo.listInProgress();
+            ListPrinter.printTaskList(tasks);
+        }catch (NoTaskWasFoundException e){
+            out.println(e.getMessage());
+        }
+    }
+
+    public void markAs()
+    {
+        String command = scanner.nextLine().trim();
+        String[] info = command.split(" ");
+        try{
+            int id = Integer.parseInt(info[0]);
+            Status mark = taskRepo.markAs(id, info[1]);
+            out.printf("Task Was Mark As %s%n", mark.name());
+        }catch (NoTaskWasFoundException e){
+            out.println(e.getMessage());
+        }
+    }
+
+    public void help()
+    {
+        String helperMessage = """
+                    - add [id] [task] [description] [status] : Add a new task
+                    - update [id] [task] [description] [status] : Update a task
+                    - delete [id] : Delete a task
+                    - mark-as [id] [status] : Mark a task as in Status you want
+                    - list : List all tasks
+                    - list-new : List all New tasks
+                    - list-in-progress : List all In-Progress tasks
+                    - list-complete : List all Completed tasks
+                    - exit : Exit the program
+                """;
+        out.println(helperMessage);
+    }
 
 
 }

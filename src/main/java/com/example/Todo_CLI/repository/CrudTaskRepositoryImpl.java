@@ -1,5 +1,6 @@
 package com.example.Todo_CLI.repository;
 
+import com.example.Todo_CLI.entity.Status;
 import com.example.Todo_CLI.entity.Task;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.System.arraycopy;
 import static java.lang.System.out;
 
 @Repository
@@ -45,7 +47,7 @@ public class CrudTaskRepositoryImpl implements CrudTaskRepository {
             Query query = taskManger.createNativeQuery(jpql);
             query.setParameter("task", task.getTask());
             query.setParameter("description", task.getDesc());
-            query.setParameter("status", task.getStatus());
+            query.setParameter("status", task.getStatus().name());
             query.setParameter("id", task.getId());
             query.executeUpdate();
 
@@ -78,4 +80,47 @@ public class CrudTaskRepositoryImpl implements CrudTaskRepository {
         Query query = taskManger.createQuery(jpql);
         query.setParameter("id", id).executeUpdate();
     }
+
+    @Transactional
+    @Override
+    public Status markAs(int id, String status)
+    {
+        Status st = Status.stringToCommand(status);
+        String jpql = "UPDATE Task t SET t.status = :st WHERE t.id = :id";
+        Query query = taskManger.createQuery(jpql);
+        query.setParameter("st", st);
+        query.setParameter("id", id);
+        query.executeUpdate();
+
+        return st;
+    }
+
+    @Override
+    public List<Task> listNew()
+    {
+        String jpql = "SELECT t FROM Task t WHERE t.status = NEW";
+        Query query = taskManger.createQuery(jpql);
+        List<Task> tasks = query.getResultList();
+        return tasks;
+
+    }
+
+    @Override
+    public List<Task> listInProgress() {
+
+        String jpql = "SELECT t FROM Task t WHERE t.status = IN_PROGRESS";
+        Query query = taskManger.createQuery(jpql);
+        List<Task> tasks = query.getResultList();
+        return tasks;
+    }
+
+    @Override
+    public List<Task> listComplete() {
+
+        String jpql = "SELECT t FROM Task t WHERE t.status = COMPLETE";
+        Query query = taskManger.createQuery(jpql);
+        List<Task> tasks = query.getResultList();
+        return tasks;
+    }
+
 }

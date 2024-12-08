@@ -20,7 +20,7 @@ A Command-Line Interface (CLI) task manager built with Spring Boot. This applica
 
 ## Prerequisites ⚙️
 
-- **JDK 12+**: Make sure you have Java Development Kit 11 or higher installed.
+- **JDK 12+**: Make sure you have Java Development Kit 12 or higher installed.
 - **MySQL 8.0+**: The application uses MySQL as the database.
 
 ## Setup 🏗️
@@ -29,3 +29,6 @@ A Command-Line Interface (CLI) task manager built with Spring Boot. This applica
 ```bash
 git clone https://github.com/yourusername/cli-task-manager.git
 cd Task-Cli
+```
+
+Sample solution for the [Task Tracker](https://roadmap.sh/projects/task-tracker) challenge.

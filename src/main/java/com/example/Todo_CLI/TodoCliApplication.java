@@ -15,10 +15,8 @@ public class TodoCliApplication {
 
 	public static void main(String[] args) throws IOException {
 		ApplicationContext context = SpringApplication.run(TodoCliApplication.class, args);
-
 		CliManger cliManger = context.getBean(CliManger.class);
 		cliManger.run();
-//		new CliManger(new CrudTaskRepositoryImpl()).run();
 
 	}
 
